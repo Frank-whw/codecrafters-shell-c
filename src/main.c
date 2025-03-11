@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
       // char dest[100];
       // substring(input, dest, 5, strlen(input));
       // 蠢死我了，这边直接input+5就完了，真的巧 从来没想过
-      printf("%s\n", input + 5);123
+      printf("%s\n", input + 5);
     }
     else
       printf("%s: command not found\n", input);
