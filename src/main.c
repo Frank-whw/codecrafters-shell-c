@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     else if (strncmp(input, "echo", 4) == 0)
     {
       char dest[100];
-      substring(input, dest, 6, strlen(input));
+      substring(input, dest, 5, strlen(input));
       printf("%s\n", dest);
     }
     else
