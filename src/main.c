@@ -36,6 +36,17 @@ int main(int argc, char *argv[])
       // 蠢死我了，这边直接input+5就完了，真的巧 从来没想过
       printf("%s\n", input + 5);
     }
+    else if (strncmp(input, "type", 4) == 0)
+    {
+      if (strncmp(input + 5, "type", 4) == 0 || strncmp(input + 5, "echo", 4) == 0 || strncmp(input + 5, "exit", 4) == 0)
+      {
+        printf("%s is a shell builtin\n", input + 5);
+      }
+      else
+      {
+        printf("%s: not found\n", input + 5);
+      }
+    }
     else
       printf("%s: command not found\n", input);
   }
