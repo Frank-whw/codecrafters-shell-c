@@ -2,6 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+void substring(char *src, char *dest, int start, int len)
+{
+  int i;
+  for (i = 0; i < len && src[start + i] != '\0'; i++)
+  {
+    dest[i] = src[start + i];
+  }
+  dest[i] = '\0';
+}
 int main(int argc, char *argv[])
 {
   // Flush after every printf
@@ -20,7 +29,14 @@ int main(int argc, char *argv[])
     {
       return 0;
     }
-    printf("%s: command not found\n", input);
+    else if (strncmp(input, "echo", 4) == 0)
+    {
+      char dest[100];
+      substring(input, dest, 6, strlen(input));
+      printf("%s\n", dest);
+    }
+    else
+      printf("%s: command not found\n", input);
   }
 
   return 0;
