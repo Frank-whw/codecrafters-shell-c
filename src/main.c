@@ -168,6 +168,6 @@ int main(int argc, char *argv[])
       }
     }
     // printf("%s: command not found\n", input);
-
-    return 0;
   }
+  return 0;
+}
