@@ -37,7 +37,7 @@ char *findPath(char *command)
       free(path_copy);
       return full_path;
     }
-    dir = strtok(NULL, ":");
+    dir = strtok(NULL, ";");
   }
   free(path_copy);
   return NULL;
