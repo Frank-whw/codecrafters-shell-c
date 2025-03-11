@@ -159,15 +159,16 @@ int main(int argc, char *argv[])
           free_args(args);
           exit(EXIT_FAILURE);
         }
-        else
-        {
-          // 父进程等待子进程结束
-          int status;
-          waitpid(pid, &status, 0);
-        }
+      }
+      else
+      {
+        // 父进程等待子进程结束
+        int status;
+        waitpid(pid, &status, 0);
       }
     }
-    // printf("%s: command not found\n", input);
   }
+  // printf("%s: command not found\n", input);
+
   return 0;
 }
