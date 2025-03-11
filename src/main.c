@@ -32,7 +32,7 @@ char *findPath(char *command)
   while (dir != NULL)
   {
     snprintf(full_path, sizeof(full_path), "%s/%s", dir, command);
-    if (is_executable(full_path))
+    if (isExecutable(full_path))
     {
       free(path_copy);
       return full_path;
