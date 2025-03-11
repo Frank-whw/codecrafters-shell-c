@@ -89,6 +89,7 @@ int main(int argc, char *argv[])
         }
         else
         {
+          hasFount = 2;
           printf("%s: not found\n", input + 5);
         }
       }
