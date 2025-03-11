@@ -3,6 +3,37 @@
 #include <string.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+#define MAX_ARGS 100
+
+// 解析输入字符串为参数数组
+void parse_input(const char *input, char *args[])
+{
+  char *token;
+  char input_copy[strlen(input) + 1];
+  strcpy(input_copy, input);
+
+  token = strtok(input_copy, " ");
+  int i = 0;
+  while (token != NULL && i < MAX_ARGS - 1)
+  {
+    args[i] = strdup(token);
+    token = strtok(NULL, " ");
+    i++;
+  }
+  args[i] = NULL;
+}
+
+// 释放参数数组的内存
+void free_args(char *args[])
+{
+  for (int i = 0; args[i] != NULL; i++)
+  {
+    free(args[i]);
+  }
+}
 // void substring(char *src, char *dest, int start, int len)
 // {
 //   int i;
@@ -41,6 +72,22 @@ char *findPath(char *command)
   }
   free(path_copy);
   return NULL;
+}
+
+// Function to count space nums
+int count_space(char *input)
+{
+  int count = 0;
+  char *p = input;
+  while (*p != '\0')
+  {
+    if (*p == ' ')
+    {
+      count++;
+    }
+    p++;
+  }
+  return count;
 }
 
 int main(int argc, char *argv[])
@@ -91,8 +138,36 @@ int main(int argc, char *argv[])
       continue;
     }
     else
-      printf("%s: command not found\n", input);
-  }
+    {
+      // 解析输入为参数数组
+      parse_input(input, args);
+      // 创建子进程
+      pid_t pid = fork();
+      if (pid < 0)
+      {
+        perror("fork");
+        free_args(args);
+        return 1;
+      }
+      else if (pid == 0)
+      {
+        // 子进程执行外部程序
+        if (execvp(args[0], args) == -1)
+        {
+          perror("execvp");
+          free_args(args);
+          exit(EXIT_FAILURE);
+        }
+        else
+        {
+          // 父进程等待子进程结束
+          int status;
+          waitpid(pid, &status, 0);
+        }
+      }
 
-  return 0;
-}
+      // printf("%s: command not found\n", input);
+    }
+
+    return 0;
+  }
