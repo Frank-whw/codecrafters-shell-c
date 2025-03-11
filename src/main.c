@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
         // 子进程执行外部程序
         if (execvp(args[0], args) == -1)
         {
-          perror("execvp");
+          fprintf(stderr, "%s: command not found\n", args[0]);
           free_args(args);
           exit(EXIT_FAILURE);
         }
