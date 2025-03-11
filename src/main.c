@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   // Flush after every printf
   setbuf(stdout, NULL);
 
@@ -11,5 +12,6 @@ int main(int argc, char *argv[]) {
   // Wait for user input
   char input[100];
   fgets(input, 100, stdin);
+  printf("invalid_command: command not found\n");
   return 0;
 }
