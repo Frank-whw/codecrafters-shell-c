@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include<string.h>
 int main(int argc, char *argv[])
 {
   // Flush after every printf
@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
   // Wait for user input
   char input[100];
   fgets(input, 100, stdin);
-  printf("invalid_command: command not found");
+  input[strlen(input) - 1] = '\0';
+  printf("%s: command not found", input);
   return 0;
 }
