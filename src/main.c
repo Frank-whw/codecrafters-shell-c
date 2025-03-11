@@ -139,6 +139,7 @@ int main(int argc, char *argv[])
     }
     else
     {
+      char *args[MAX_ARGS];
       // 解析输入为参数数组
       parse_input(input, args);
       // 创建子进程
