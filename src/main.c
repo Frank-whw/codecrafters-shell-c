@@ -37,7 +37,7 @@ char *findPath(char *command)
       free(path_copy);
       return full_path;
     }
-    dir = strtok(NULL, ";");
+    dir = strtok(NULL, ":");
   }
   free(path_copy);
   return NULL;
@@ -54,7 +54,6 @@ int main(int argc, char *argv[])
 
     // Wait for user input
     char input[100];
-    char builtins[][16] = {"echo", "type", "exit"};
     fgets(input, 100, stdin);
     input[strlen(input) - 1] = '\0';
     if (strcmp(input, "exit 0") == 0)
@@ -70,31 +69,26 @@ int main(int argc, char *argv[])
     }
     else if (strncmp(input, "type", 4) == 0)
     {
-      int hasFount = 0;
-      for (int i = 0; i < sizeof(builtins) / 16; i++)
+      char *command = input + 5;
+      if (strcmp(command, "echo") == 0 || strcmp(command, "exit") == 0 ||
+          strcmp(command, "type") == 0)
       {
-        if (strcmp(input + 5, builtins[i]) == 0)
-        {
-          hasFount = 1;
-          printf("%s is a shell builtin\n", input + 5);
-        }
+        printf("%s is a shell builtin\n", command);
       }
-      if (hasFount == 0)
+      else
       {
-        char *path = findPath(input + 5);
+        // Search for the command in the PATH
+        char *path = find_in_path(command);
         if (path)
         {
-          hasFount = 1;
-          printf("%s is %s\n", input + 5, path);
+          printf("%s is %s\n", command, path);
         }
         else
         {
-          hasFount = 2;
-          printf("%s: not found\n", input + 5);
+          printf("%s: not found\n", command);
         }
       }
-      if (hasFount == 0)
-        printf("%s: not found\n", input + 5);
+      continue;
     }
     else
       printf("%s: command not found\n", input);
