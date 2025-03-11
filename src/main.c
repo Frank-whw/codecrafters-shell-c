@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
       else
       {
         // Search for the command in the PATH
-        char *path = find_in_path(command);
+        char *path = findPath(command);
         if (path)
         {
           printf("%s is %s\n", command, path);
