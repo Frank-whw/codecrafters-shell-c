@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <direct.h>
 
 #define MAX_ARGS 100
 
@@ -141,7 +140,7 @@ int main(int argc, char *argv[])
     else if (strcmp(input, "pwd") == 0)
     {
       char currentDir[MAX_ARGS];
-      _getcwd(currentDir, MAX_PATH_LENGTH);
+      getcwd(currentDir, MAX_ARGS);
       printf("%s\n", currentDir);
     }
     else
